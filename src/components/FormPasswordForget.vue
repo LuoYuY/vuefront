@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <h1>洛小侠</h1>
-  </div>
+<div>
+  <h1>FormPasswordForget</h1>
+</div>
 </template>
 
 <script>
   export default {
-    name: 'Banner'
+    name: 'FormPasswordForget'
   }
 </script>
 
