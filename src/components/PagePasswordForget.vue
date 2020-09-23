@@ -8,7 +8,6 @@
 <script>
   import Banner from './Banner'
   import FormPasswordForget from './FormPasswordForget'
-
   export default {
     name: 'PagePasswordForget',
     components: {
