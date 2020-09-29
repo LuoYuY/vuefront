@@ -1,7 +1,10 @@
 <template>
-<div>
+<div id="pageLogin">
   <banner></banner>
-  <login-form></login-form>
+  <div class="content">
+     <login-form></login-form>
+     <copy-right></copy-right>
+  </div>
 </div>
 </template>
 
@@ -20,5 +23,12 @@
 <style scoped>
   body {
     margin: 0;
+  }
+  .content {
+    background-image: url('../assets/backgroud1.jpg');
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: 100% 100%;
+    height: 1000px;
   }
 </style>

@@ -2,8 +2,19 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
+import axios from 'axios'
 import './styles/init.css'
+import VueRouter from 'vue-router'
+import Routes from './router/index'
+
+Vue.use(VueRouter)
+
+const router = new VueRouter({
+  routes: Routes,
+  mode:'history'
+})
+
+Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
@@ -13,3 +24,6 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+axios.defaults.baseURL = '/api'
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'

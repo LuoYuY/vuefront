@@ -1,0 +1,15 @@
+1.ESLint:expected indentation of 0 spaces but found 2.(indent）
+
+解决;  添加一条rule ： 'indent: ["off", 2']  至eslint.js文件中，表示缩进两个字符合法
+
+
+2.Error from chokidar (/home/lyy/IdeaProjects/vuefront/static): Error: ENOSPC: System limit for number of file watchers reached, watch '/home/lyy/IdeaProjects/vuefront/static/.gitkeep'
+
+ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+
+
+3.动态绑定class：
+<div v-bind:class="{tab:true,active:num==0}" v-on:click="showPassword">密码登录</div>
+
+4.axios使用
+https://www.cnblogs.com/zhouyangla/p/6753673.html
