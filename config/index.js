@@ -10,11 +10,13 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {'/api':{
-        target: "http://115.29.208.141:8080",
-        changeOrigin:true,
-        pathRewrite:{
-          '^/api':''
+    proxyTable: { '/api': {
+        // 请求的目标主机
+        target: 'http://xxxxxx.com',
+        changeOrigin: true,
+        // 这样重写会把路径中 /api 消去
+        pathRewrite: {
+          '^/api': ''
         }
       }},
 

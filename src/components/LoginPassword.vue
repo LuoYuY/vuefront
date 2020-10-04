@@ -10,12 +10,12 @@
 </template>
 
 <script>
-  import axios from 'axios'
+
   export default {
     name: 'LoginPassword',
     methods:{
       pwdLogin: function () {
-        axios.post('user/getUser', {}).then(res => {
+        this.$axios.post('/api/user/getUser', {}).then(res => {
           console.log(res)
         })
       }

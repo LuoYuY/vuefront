@@ -13,9 +13,9 @@ const router = new VueRouter({
   routes: Routes,
   mode:'history'
 })
-
-Vue.prototype.$http = axios
-Vue.config.productionTip = false
+axios.defaults.baseURL = '/api'
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+Vue.prototype.$axios = axios
 
 /* eslint-disable no-new */
 new Vue({
@@ -24,6 +24,3 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
-
-axios.defaults.baseURL = '/api'
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
