@@ -1,7 +1,7 @@
 <template>
   <div>
-    <input type="text" placeholder="username"/>
-    <input type="password" placeholder="password"/>
+    <input v-model="username" type="text" placeholder="username"/>
+    <input v-model="password" type="password" placeholder="password"/>
     <div>
       <router-link to="/account/password_reset">forget password?</router-link>
     </div>
@@ -10,14 +10,33 @@
 </template>
 
 <script>
-
+  import qs from 'qs'
   export default {
     name: 'LoginPassword',
-    methods:{
+    data () {
+      return {
+        username: '',
+        password: ''
+      }
+    },
+    methods: {
       pwdLogin: function () {
-        this.$axios.post('/api/user/getUser', {}).then(res => {
-          console.log(res)
-        })
+        let data = {
+          // "idd": "f6588b4d3a274d599c8696e3a2e89579",
+          // "name":"水"
+          username: this.username,
+          password: this.password
+        }
+        this.$axios.post('/user/loginPwd', qs.stringify(data))
+          .then((response) => {
+            console.log(response)
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+          .then(function () {
+            // always executed
+          })
       }
     }
   }
@@ -33,18 +52,20 @@
     font-size: 25px;
     margin-top: 20px;
   }
+
   button {
     width: 100%;
     border: none;
     color: white;
     background: #be0cff;
     font-size: 20px;
-    padding:5px;
+    padding: 5px;
     margin-top: 15px;
   }
-  a{
+
+  a {
     float: right;
-    margin-top:10px;
+    margin-top: 10px;
     font-size: 15px;
   }
 

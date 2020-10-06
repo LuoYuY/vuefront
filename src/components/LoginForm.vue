@@ -31,7 +31,7 @@
     data () { // = data: function() {
       return {
         component: 'form-one',
-        num: 1
+        num: 0
       }
     },
     methods: {

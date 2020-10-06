@@ -10,19 +10,22 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: { '/api': {
-        // 请求的目标主机
-        target: 'http://xxxxxx.com',
-        changeOrigin: true,
-        // 这样重写会把路径中 /api 消去
+    proxyTable: {'/api': { //代理标识
+        target: 'http://115.29.208.141:8080',//指向的实际地址
+        //target: 'http://localhost:8080',//指向的实际地址
+        changeOrigin: true, // 允许跨域
         pathRewrite: {
-          '^/api': ''
+          // 标识替换
+          // 原请求地址为 /api/getData 将'/api'替换''时，
+          // 代理后的请求地址为： http://xxx.xxx.xxx/getData
+          // 若替换为'/other',则代理后的请求地址为 http://xxx.xxx.xxx/other/getData
+          '^/api': ""
         }
       }},
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
-    port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    port: 8083, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,
