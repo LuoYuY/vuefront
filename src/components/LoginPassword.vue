@@ -1,7 +1,8 @@
 <template>
   <div>
-    <input v-model="username" type="text" placeholder="username"/>
+    <input v-model="email" type="text" placeholder="email"/>
     <input v-model="password" type="password" placeholder="password"/>
+    <p>{{ msg }}</p>
     <div>
       <router-link to="/account/password_reset">forget password?</router-link>
     </div>
@@ -15,21 +16,46 @@
     name: 'LoginPassword',
     data () {
       return {
-        username: '',
-        password: ''
+        email: '',
+        password: '',
+        msg: ''
       }
     },
     methods: {
       pwdLogin: function () {
+        this.msg = ''
         let data = {
           // "idd": "f6588b4d3a274d599c8696e3a2e89579",
           // "name":"水"
-          username: this.username,
+          email: this.email,
           password: this.password
         }
         this.$axios.post('/user/loginPwd', qs.stringify(data))
           .then((response) => {
             console.log(response)
+            if (response.data.status === 0) {
+              alert(response.data.data.token)
+              this.$store.commit('ADD_COUNT', response.data.data.token)
+              // this.$store.state.email = response.data.data.address
+              console.log(response.data.data.currentUser)
+              localStorage.setItem('currentUser', JSON.stringify(response.data.data.currentUser))
+              // let clock = window.setInterval(() => {
+              //   this.totalTime-- ;
+              //   if (this.totalTime < 0) {
+              //     window.clearInterval(clock) ;
+              //     this.$Loading.finish();
+              //     this.$router.push('/') ;
+              //   }
+              // },1000)
+              if (response.data.data.currentUser.roleId === 0) {
+                this.$router.push('/stu')
+              }
+              if (response.data.data.currentUser.roleId === 1) {
+                this.$router.push('/tch')
+              }
+            } else {
+              this.msg = response.data.msg
+            }
           })
           .catch(function (error) {
             console.log(error)

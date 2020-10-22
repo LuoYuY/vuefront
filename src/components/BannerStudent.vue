@@ -4,8 +4,8 @@
     <div style="text-align: center;">
       <ul>
         <li><a href="#">选课</a></li>
-        <li><a href="#">一级菜单</a></li>
-        <li><a href="#">一级菜单</a></li>
+        <li><a href="#">我的课程</a></li>
+        <li><a href="#">个人信息管理</a></li>
         <li><a href="#"><b>一级菜单</b></a></li>
         <li><a href="#">一级菜单</a></li>
         <li>
@@ -16,7 +16,13 @@
           </ul>
         </li>
         <li style="float: right">
-          <a href="sign_in">登录</a>
+          <a v-if="currentUser === null" href="sign_in">登录</a>
+          <a v-if="currentUser !== null" href="#">{{ currentUser.userName }}</a>
+          <ul v-if="currentUser !== null">
+            <li><a href="#">主页</a></li>
+            <li><a href="#">信息管理</a></li>
+            <li><a href="#" v-on:click="logout">退出</a></li>
+          </ul>
         </li>
       </ul>
     </div>
@@ -25,7 +31,19 @@
 
 <script>
   export default {
-    name: 'Banner'
+    name: 'BannerStudent',
+    data () {
+      return {
+        currentUser: JSON.parse(localStorage.getItem('currentUser'))
+      }
+    },
+    methods: {
+      logout: function () {
+        this.$store.commit('REMOVE_COUNT', this.$store.state.token)
+        localStorage.removeItem('currentUser')
+        this.$router.push('/sign_in')
+      }
+    }
   }
 </script>
 
@@ -91,7 +109,6 @@
 
   #banner ul li ul li {
     /* 二级菜单li内容的显示 */
-
     float: none;
     text-align: center;
   }

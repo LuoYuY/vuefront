@@ -3,10 +3,10 @@
   <div id="banner">
     <div style="text-align: center;">
       <ul>
-        <li><a href="#">选课</a></li>
-        <li><a href="#">一级菜单</a></li>
-        <li><a href="#">一级菜单</a></li>
-        <li><a href="#"><b>一级菜单</b></a></li>
+        <li><a href="#">课程管理</a></li>
+        <li><a href="#">作业管理</a></li>
+        <li><a href="#">成绩单管理</a></li>
+        <li><a href="#"><b>个人信息管理</b></a></li>
         <li><a href="#">一级菜单</a></li>
         <li>
           <a href="#">一级菜单</a>
@@ -18,6 +18,7 @@
         <li style="float: right">
           <a href="sign_in">登录</a>
         </li>
+
       </ul>
     </div>
   </div>
@@ -25,7 +26,7 @@
 
 <script>
   export default {
-    name: 'Banner'
+    name: 'BannerTeacher'
   }
 </script>
 

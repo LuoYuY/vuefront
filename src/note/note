@@ -13,3 +13,16 @@
 
 4.axios使用
 https://www.cnblogs.com/zhouyangla/p/6753673.html
+
+5.不同用户动态生成菜单
+https://blog.csdn.net/weixin_45485824/article/details/103727884
+左侧操作菜单，后台得来该用户能看到的菜单数据，你直接跑这个数据循环出菜单来，简单明了
+至于文件操作权限，你给你的按钮设定什么权限的用户才能看到这个按钮就ok了，v-if，即使打开控制器，也看不到他没有权限看到的元素
+http://www.fx361.com/page/2019/1226/6233806.shtml
+https://bbs.huaweicloud.com/blogs/159917
+https://segmentfault.com/q/1010000019937875
+https://www.cnblogs.com/lenve/p/11242055.html
+
+RBAC
+
+6 token 相关 比较简单 https://www.cnblogs.com/dhsz/p/6410031.html

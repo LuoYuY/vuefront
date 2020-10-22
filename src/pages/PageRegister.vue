@@ -1,20 +1,19 @@
 <template>
-<div id="pageLogin">
-  <banner></banner>
-  <div class="content">
-     <login-form></login-form>
-     <copy-right></copy-right>
+  <div id="pageLogin">
+    <banner></banner>
+    <div class="content">
+      <register-form></register-form>
+    </div>
+    <copy-right></copy-right>
   </div>
-</div>
 </template>
-
 <script>
-  import LoginForm from './LoginForm'
-  import Banner from './Banner'
+  import RegisterForm from '../components/RegisterForm'
+  import Banner from '../components/Banner'
   export default {
-    name: 'PageLogin',
+    name: 'PageRegister',
     components:{
-      'login-form': LoginForm,
+      'register-form': RegisterForm,
       'banner': Banner
     }
   }

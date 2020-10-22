@@ -11,8 +11,8 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {'/api': { //代理标识
-        target: 'http://115.29.208.141:8080',//指向的实际地址
-        //target: 'http://localhost:8080',//指向的实际地址
+        // target: 'http://115.29.208.141:8080',//指向的实际地址
+        target: 'http://localhost:8080',//指向的实际地址
         changeOrigin: true, // 允许跨域
         pathRewrite: {
           // 标识替换

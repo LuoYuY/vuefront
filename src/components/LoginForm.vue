@@ -2,8 +2,8 @@
   <div id="login-form">
     <div class="content">
       <div class="tabs">
-        <div v-bind:class="{tab:true,active:num==0}" v-on:click="showPassword">密码登录</div>
-        <div v-bind:class="{tab:true,active:num==1}" v-on:click="showPhone">免密码登录</div>
+        <div v-bind:class="{tab:true,active:num==0}" v-on:click="showPassword">学生登录</div>
+        <div v-bind:class="{tab:true,active:num==1}" v-on:click="showPhone">教师登录</div>
       </div>
       <keep-alive>
         <component v-bind:is="component"></component>

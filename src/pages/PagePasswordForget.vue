@@ -6,8 +6,8 @@
 </template>
 
 <script>
-  import Banner from './Banner'
-  import FormPasswordForget from './FormPasswordForget'
+  import Banner from '../components/Banner'
+  import FormPasswordForget from '../components/FormPasswordForget'
   export default {
     name: 'PagePasswordForget',
     components: {
