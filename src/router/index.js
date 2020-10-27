@@ -5,6 +5,7 @@ import PageRegister from '../pages/PageRegister'
 import Index from '../pages/Index'
 import PageStudent from '../pages/PageStudent'
 import PageTeacher from '../pages/PageTeacher'
+import PageCreateCourse from '../pages/PageCreateCourse'
 export default [
   // {
   //   path: '/',
@@ -48,6 +49,14 @@ export default [
     path: '/tch',
     name: 'PageTeacher',
     component: PageTeacher,
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: '/tch/createCourse',
+    name: 'PageCreateCourse',
+    component: PageCreateCourse,
     meta: {
       requireAuth: true
     }

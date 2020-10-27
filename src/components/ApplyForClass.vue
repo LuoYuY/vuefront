@@ -8,12 +8,56 @@
             <span slot="prepend">课程名称</span>
           </i-input>
         </FormItem>
-        <FormItem prop="reason">
-          <span>申请理由</span>
-          <Input v-model="formInline.reason" type="textarea" :rows="4" placeholder="Enter something..." />
+        <!--        <FormItem prop="time">-->
+        <!--          <i-input type="password" v-model="formInline.password" placeholder="Password">-->
+        <!--            <Icon type="ios-lock-outline" slot="prepend"></Icon>-->
+        <!--&lt;!&ndash;            <span slot="append">.com</span>&ndash;&gt;-->
+        <!--          </i-input>-->
+        <!--        </FormItem>-->
+        <FormItem prop="activeTime" :label-in-value="true">
+          <Row>
+            <i-col span="11">
+              <span>开始时间</span>
+              <DatePicker type="date" :options="startTimeOptions" @on-change="startTimeChange" placeholder="开始时间"
+                          v-model="formInline.starttime"></DatePicker>
+            </i-col>
+            <i-col span="2" style="text-align: center">-</i-col>
+            <i-col span="11">
+              <span>结束时间</span>
+              <DatePicker type="date" :options="endTimeOptions" @on-change="endTimeChange" placeholder="结束时间"
+                          v-model="formInline.endtime">
+              </DatePicker>
+            </i-col>
+          </Row>
+        </FormItem>
+        <FormItem prop="duration">
+          <i-input type="text" v-model="formInline.duration" placeholder="">
+            <span slot="prepend">总学时（h）</span>
+          </i-input>
+        </FormItem>
+        <FormItem prop="semester">
+          <i-input type="text" v-model="formInline.semester" placeholder="">
+            <span slot="prepend">学期</span>
+          </i-input>
+        </FormItem>
+        <FormItem prop="grade">
+          <i-input type="text" v-model="formInline.grade" placeholder="">
+            <span slot="prepend">年级</span>
+          </i-input>
+        </FormItem>
+        <FormItem prop="maxNum">
+          <i-input type="text" v-model="formInline.maxNum" placeholder="">
+            <span slot="prepend">限选人数（人）</span>
+          </i-input>
         </FormItem>
         <FormItem>
-          <Button type="primary" @click="handleSubmit('formInline')">提交申请</Button>
+          <span>开课学期</span>
+          <Select>
+            <Option :value="item.code" v-for="item in semesterList" v-bind:key="item.id">{{ item.year }}学年 第{{ item.term }}学期</Option>
+          </Select>
+        </FormItem>
+        <FormItem>
+          <Button type="primary" @click="handleSubmit('formInline')">Signin</Button>
         </FormItem>
       </Form>
     </div>
@@ -21,14 +65,21 @@
 </template>
 
 <script>
-  import qs from 'qs'
   export default {
-    name: 'CreateCourse',
+    name: 'ApplyForClass',
     data () {
       return {
         formInline: {
           title: '',
-          reason: ''
+          starttime: '', // 开始日期
+          endtime: '', // 结束日期
+          startTimeOptions: {},
+          endTimeOptions: {},
+          activeTime: '',
+          duration: null,
+          maxNum: null,
+          semester: null,
+          grade: null
         },
         ruleInline: {
           title: [
@@ -70,27 +121,6 @@
         this.$refs[name].validate((valid) => {
           if (valid) {
             // this.$Message.success('Success!')
-            let data = {
-              teacherId: this.currentUser.id,
-              name: this.formInline.title,
-              reason: this.formInline.reason
-            }
-            // eslint-disable-next-line no-undef
-            this.$axios.post('/course/createApply', qs.stringify(data))
-              .then((response) => {
-                console.log(response)
-                if (response.data.status === 0) {
-                  this.$Message.success('Success!')
-                } else {
-                  this.$Message.error('Fail!')
-                }
-              })
-              .catch(function (error) {
-                console.log(error)
-              })
-              .then(function () {
-                // always executed
-              })
           } else {
             this.$Message.error('Fail!')
           }

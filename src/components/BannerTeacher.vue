@@ -3,7 +3,13 @@
   <div id="banner">
     <div style="text-align: center;">
       <ul>
-        <li><a href="#">课程管理</a></li>
+        <li>
+          <a href="#">课程管理</a>
+          <ul>
+            <li><a href="#">我的课程</a></li>
+            <li><a href="/tch/createCourse">课程创建</a></li>
+          </ul>
+        </li>
         <li><a href="#">作业管理</a></li>
         <li><a href="#">成绩单管理</a></li>
         <li><a href="#"><b>个人信息管理</b></a></li>
@@ -16,9 +22,14 @@
           </ul>
         </li>
         <li style="float: right">
-          <a href="sign_in">登录</a>
+          <a v-if="currentUser === null" href="sign_in">登录</a>
+          <a v-if="currentUser !== null" href="#">{{ currentUser.userName }}</a>
+          <ul v-if="currentUser !== null">
+            <li><a href="#">主页</a></li>
+            <li><a href="#">信息管理</a></li>
+            <li><a href="#" v-on:click="logout">退出</a></li>
+          </ul>
         </li>
-
       </ul>
     </div>
   </div>
@@ -26,7 +37,19 @@
 
 <script>
   export default {
-    name: 'BannerTeacher'
+    name: 'BannerTeacher',
+    data () {
+      return {
+        currentUser: JSON.parse(localStorage.getItem('currentUser'))
+      }
+    },
+    methods: {
+      logout: function () {
+        this.$store.commit('REMOVE_COUNT', this.$store.state.token)
+        localStorage.removeItem('currentUser')
+        this.$router.push('/sign_in')
+      }
+    }
   }
 </script>
 
