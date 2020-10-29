@@ -9,6 +9,8 @@ import PageCreateCourse from '../pages/PageCreateCourse'
 import PageAdmin from '../pages/PageAdmin'
 import startApply from '../components/StartApply'
 import createApply from '../components/CreateApply'
+import PageMyCourse from '../pages/PageMyCourse'
+import PageOpenCourse from '../pages/PageOpenCourse'
 export default [
   // {
   //   path: '/',
@@ -60,6 +62,22 @@ export default [
     path: '/tch/createCourse',
     name: 'PageCreateCourse',
     component: PageCreateCourse,
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: '/tch/openCourse',
+    name: 'PageOpenCourse',
+    component: PageOpenCourse,
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: '/tch/myCourse',
+    name: 'PageMyCourse',
+    component: PageMyCourse,
     meta: {
       requireAuth: true
     }

@@ -6,8 +6,9 @@
         <li>
           <a href="#">课程管理</a>
           <ul>
-            <li><a href="#">我的课程</a></li>
+            <li><a href="/tch/myCourse">我的课程</a></li>
             <li><a href="/tch/createCourse">课程创建</a></li>
+            <li><a href="/tch/openCourse">课程发布</a></li>
           </ul>
         </li>
         <li><a href="#">作业管理</a></li>
