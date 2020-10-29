@@ -20,6 +20,19 @@ const router = new VueRouter({
 })
 axios.defaults.baseURL = '/api'
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+axios.defaults.timeout = 30000
+axios.interceptors.request.use(
+  config => {
+    console.log(config)
+    if (localStorage.getItem('token')) {
+      config.headers.token = localStorage.getItem('token')
+    }
+    return config
+  },
+  function (err) {
+    console.log('失败信息' + err)
+  }
+)
 Vue.prototype.$axios = axios
 
 const ADD_COUNT = 'ADD_COUNT' // 用常量代替事件类型，使得代码更清晰

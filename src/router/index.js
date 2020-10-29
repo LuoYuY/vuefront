@@ -6,6 +6,9 @@ import Index from '../pages/Index'
 import PageStudent from '../pages/PageStudent'
 import PageTeacher from '../pages/PageTeacher'
 import PageCreateCourse from '../pages/PageCreateCourse'
+import PageAdmin from '../pages/PageAdmin'
+import startApply from '../components/StartApply'
+import createApply from '../components/CreateApply'
 export default [
   // {
   //   path: '/',
@@ -60,5 +63,23 @@ export default [
     meta: {
       requireAuth: true
     }
+  },
+  {
+    path: '/admin',
+    name: 'PageAdmin',
+    component: PageAdmin,
+    children: [{
+      path: 'createApply',
+      name: 'createApply',
+      component: createApply
+    }, {
+      path: 'startApply',
+      name: 'startApply',
+      // components: {
+      //   default: UserProfile,
+      //   helper: UserProfilePreview
+      // }
+      component: startApply
+    }]
   }
 ]
