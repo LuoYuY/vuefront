@@ -14,6 +14,11 @@
       <!--&lt;!&ndash;            <span slot="append">.com</span>&ndash;&gt;-->
       <!--          </i-input>-->
       <!--        </FormItem>-->
+      <FormItem prop="className">
+        <i-input type="text" v-model="formInline.className" placeholder="">
+          <span slot="prepend">课程名称</span>
+        </i-input>
+      </FormItem>
       <FormItem prop="activeTime" :label-in-value="true">
         <Row>
           <i-col span="11">
@@ -75,7 +80,8 @@
           activeTime: '',
           maxNum: null,
           semester: null,
-          grade: null
+          grade: null,
+          className: null
         },
         ruleInline: {
           // title: [
@@ -103,6 +109,10 @@
           {
             title: '编号',
             key: 'id'
+          },
+          {
+            title: '小课名称',
+            key: 'className'
           },
           {
             title: '课程名称',
@@ -205,6 +215,7 @@
             let data = {
               teacherId: this.currentUser.id,
               courseId: this.formInline.title,
+              name: this.formInline.className,
               startDate: this.formInline.starttime,
               endDate: this.formInline.endtime,
               semesterId: this.formInline.semester,
@@ -278,6 +289,7 @@
               }
               const obj = { // 关键！ 创建一个新对象
                 id: i + 1,
+                className: array[i].name,
                 courseName: array[i].courseName,
                 startDate: array[i].startDate,
                 endDate: array[i].endDate,

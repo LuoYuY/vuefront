@@ -21,6 +21,10 @@
             key: 'teacher'
           },
           {
+            title: '小课名称',
+            key: 'className'
+          },
+          {
             title: '课程名称',
             key: 'courseName'
           },
@@ -80,7 +84,7 @@
                     on: {
                       click: () => {
                         if (window.confirm('确认通过吗')) {
-                          this.dealCreApply(params.row.classId, 1)
+                          this.dealCreApply(params.row.realId, 1)
                         } else {}
                       }
                     }
@@ -97,7 +101,7 @@
                     on: {
                       click: () => {
                         if (window.confirm('确认驳回吗')) {
-                          this.dealCreApply(params.row.classId, 2)
+                          this.dealCreApply(params.row.realId, 2)
                         } else {}
                       }
                     }
@@ -131,7 +135,7 @@
           id: id,
           choice: choice
         }
-        this.$axios.post('/admin/dealCreApply', qs.stringify(data))
+        this.$axios.post('/admin/dealCreClassApply', qs.stringify(data))
           .then((response) => {
             if (response.data.status === 0) {
               this.$Message.success('Success!')
@@ -170,8 +174,9 @@
               }
               const obj = { // 关键！ 创建一个新对象
                 id: i + 1,
-                courseId: array[i].id,
+                realId: array[i].id,
                 teacher: array[i].teacher,
+                className: array[i].name,
                 courseName: array[i].courseName,
                 startDate: array[i].startDate,
                 endDate: array[i].endDate,
