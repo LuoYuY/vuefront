@@ -11,6 +11,9 @@ import startApply from '../components/StartApply'
 import createApply from '../components/CreateApply'
 import PageMyCourse from '../pages/PageMyCourse'
 import PageOpenCourse from '../pages/PageOpenCourse'
+import SelectClass from '../components/SelectClass'
+import AllClass from '../components/AllClass'
+
 export default [
   // {
   //   path: '/',
@@ -48,7 +51,17 @@ export default [
     component: PageStudent,
     meta: {
       requireAuth: true
+    },
+    children: [{
+      path: 'selectClass',
+      name: 'selectClass',
+      component: SelectClass
+    }, {
+      path: 'AllClass',
+      name: 'AllClass',
+      component: AllClass
     }
+    ]
   },
   {
     path: '/tch',

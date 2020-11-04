@@ -27,6 +27,11 @@
           <h2>已结束</h2>
           <h3>结束了的小班链接</h3>
           <h1>课件目录</h1>
+          <div style="background:#eee;padding: 20px" >
+            <Card :bordered="false"  v-for="(item,index) in courseWare" :key="index">
+              <p slot="title"> <a :href="item.filepath">{{ item.filename }} </a></p>
+            </Card>
+          </div>
           <h2>课件下载链接</h2> <span>删除按钮</span>
           <h1>课件上传</h1>
           <h3>课件上传框</h3>
@@ -119,6 +124,7 @@
       },
       getDetail (courseId) {
         this.classes = []
+        this.courseWare = []
         this.courseId = courseId
         this.$axios.get('/tch/getCourseDetail?courseId=' + courseId)
           .then((response) => {
@@ -133,6 +139,17 @@
               }
               this.classes.push(obj)
               // console.log(this.courses)
+            }
+            let array2 = []
+            array2 = JSON.parse(JSON.stringify(response.data.data.courseWare))
+            for (let i = 0; i < array2.length; i++) {
+              const obj = { // 关键！ 创建一个新对象
+                id: array2[i].id,
+                filename: array2[i].filename,
+                filepath: array2[i].filepath,
+                uploadDate: array2[i].uploadDate
+              }
+              this.courseWare.push(obj)
             }
           })
           .catch(function (error) {
@@ -182,6 +199,19 @@
           this.loadingStatus = false
           this.$Message.error('请至少上传一个文件')
         }
+      },
+      download (url) {
+        alert(url)
+        this.$axios.get(url)
+          .then((response) => {
+            console.log(response)
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+          .then(function () {
+            // always executed
+          })
       }
     }
   }

@@ -1,6 +1,7 @@
 <template>
 <div id="pageStudent">
   <banner-student></banner-student>
+  <router-view></router-view>
 </div>
 </template>
 
