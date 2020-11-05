@@ -25,37 +25,12 @@
             <p slot="title"> <a :href="item.filepath">{{ item.filename }} </a></p>
           </Card>
         </div>
-<!--        <h2>课件下载链接</h2> <span>删除按钮</span>-->
-<!--        <h1>课件上传</h1>-->
-<!--        <h3>课件上传框</h3>-->
-<!--        <Button @click="showDialog()">文件上传</Button>-->
-<!--        <h1>论坛</h1>-->
-
-<!--        <Modal v-model="add.dialog" title="文件上传" :loading="true" :closable="false" width="540">-->
-<!--          <Tabs>-->
-<!--            <TabPane label="选择文件">-->
-<!--              <Upload :before-upload="handleUpload" action multiple :format="['docx','doc','txt', 'pdf']">-->
-<!--                <Button icon="ios-cloud-upload-outline">Select the file to upload</Button>-->
-<!--              </Upload>-->
-<!--              <div>-->
-<!--                <ul class="file-list" v-for="(list,index) in add.uploadFile" :key="index">-->
-<!--                  <li>-->
-<!--                    <span style="font-size:15px;color:#3449ff">文件名: {{ list.name }}</span>-->
-<!--                    <Icon type="ios-close" size="25" color="red" @click="delFileList(index)"></Icon>-->
-<!--                  </li>-->
-<!--                </ul>-->
-<!--              </div>-->
-<!--            </TabPane>-->
-<!--          </Tabs>-->
-<!--          <div slot="footer">-->
-<!--            <Button type="text" size="large" @click="cancleUpload">取消</Button>-->
-<!--            <Button-->
-<!--              type="primary"-->
-<!--              @click="upload"-->
-<!--              :loading="loadingStatus"-->
-<!--            >{{ loadingStatus ? '上传中...' : '上传' }}</Button>-->
-<!--          </div>-->
-<!--        </Modal>-->
+          <h1>作业目录</h1>
+          <div>
+              <Card :bordered="false"  v-for="(item,index) in tasks" :key="index">
+                  <p style="cursor:pointer" slot="title" v-on:click="toTaskDetail(item.id)">{{ item.title }}</p>
+              </Card>
+          </div>
       </section>
     </div>
   </div>
@@ -70,12 +45,8 @@
         courseName: null,
         // courseId: null,
         classes: [],
-        courseWare: []
-        // add: {
-        //   dialog: false,
-        //   uploadFile: []
-        // },
-        // loadingStatus: false
+        courseWare: [],
+        tasks: []
       }
     },
     mounted: function () {
@@ -107,8 +78,9 @@
             // always executed
           })
       },
-      showDialog () {
-        this.add.dialog = true
+      toTaskDetail (taskId) {
+        let routeData = this.$router.resolve({ name: 'taskDetailStu', query: { taskId: taskId } })
+        window.open(routeData.href, '_blank')
       },
       getDetail (classId, courseId) {
         this.courseWare = []
@@ -138,53 +110,19 @@
             // always executed
           })
         // 小课作业填充
-      },
-      delFileList (index) {
-        this.add.uploadFile.splice(index, 1)
-      },
-      handleUpload (file) {
-        this.add.uploadFile.push(file)
-        return false
-      },
-      upload () {
-        this.loadingStatus = true
-        console.log('上传：' + this.add.uploadFile)
-        let formData = new FormData()
-        if (this.add.uploadFile.length > 0) {
-          for (let i = 0; i < this.add.uploadFile.length; i++) {
-            formData.append('uploadFile', this.add.uploadFile[i]) // 文件对象
-          }
-          // console.log(formData)
-          alert('courseId' + this.courseId)
-          formData.append('courseId', this.courseId)
-          this.$axios.post('/tch/uploadFile', formData, {
-            timeout: 10000,
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-          }).then(response => {
-            console.log(response)
-            if (response.data.status === 0) {
-              this.loadingStatus = false
-              this.add.uploadFile = []
-              this.$Message.success('Success')
-              this.add.dialog = false
-            }
-          })
-            .catch(error => {
-              this.loadingStatus = false
-              this.$Message.error('服务器错误' + error)
-            })
-        } else {
-          this.loadingStatus = false
-          this.$Message.error('请至少上传一个文件')
-        }
-      },
-      download (url) {
-        alert(url)
-        this.$axios.get(url)
+        this.$axios.get('/stu/getTaskList?classId=' + classId)
           .then((response) => {
-            console.log(response)
+            // console.log(response)
+            this.tasks = []
+            let array = []
+            array = JSON.parse(JSON.stringify(response.data.data))
+            for (let i = 0; i < array.length; i++) {
+              const obj = { // 关键！ 创建一个新对象
+                id: array[i].id,
+                title: array[i].title
+              }
+              this.tasks.push(obj)
+            }
           })
           .catch(function (error) {
             console.log(error)

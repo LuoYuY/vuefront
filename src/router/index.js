@@ -16,6 +16,7 @@ import MyCourse from '../components/MyCourse'
 import PageClassDetailTch from '../pages/PageClassDetailTch'
 import CreateTask from '../components/CreateTask'
 import TaskDetailTch from '../components/TaskDetailTch'
+import PageTaskDetailStu from '../pages/PageTaskDetailStu'
 
 export default [
   // {
@@ -64,6 +65,14 @@ export default [
       name: 'AllClass',
       component: AllClass
     }]
+  },
+  {
+    path: '/stu/taskDetailStu',
+    name: 'taskDetailStu',
+    component: PageTaskDetailStu,
+    meta: {
+      requireAuth: true
+    }
   },
   {
     path: '/tch/detail',
