@@ -23,7 +23,8 @@
           <h1>{{ courseName }}</h1>
           <h1>小班目录</h1>
           <h2>进行中</h2>
-          <h3 v-for="(item,index) in classes" :key="index" >{{ item.name }}</h3>
+          <h3 v-for="(item,index) in classes" :key="index" >
+            <router-link target="_blank" :to="{path:'/tch/detail',query:{id: item.id}}">{{ item.name }}</router-link></h3>
           <h2>已结束</h2>
           <h3>结束了的小班链接</h3>
           <h1>课件目录</h1>
@@ -35,12 +36,6 @@
           <h2>课件下载链接</h2> <span>删除按钮</span>
           <h1>课件上传</h1>
           <h3>课件上传框</h3>
-<!--          <Upload-->
-<!--            multiple-->
-<!--            action="//jsonplaceholder.typicode.com/posts/">-->
-<!--            <Button icon="ios-cloud-upload-outline">Upload files</Button>-->
-<!--            -->
-<!--          </Upload>-->
           <Button @click="showDialog()">文件上传</Button>
           <h1>论坛</h1>
 
@@ -189,6 +184,7 @@
                 this.add.uploadFile = []
                 this.$Message.success('Success')
                 this.add.dialog = false
+                this.getDetail(this.courseId)
               }
             })
             .catch(error => {

@@ -5,14 +5,17 @@ import PageRegister from '../pages/PageRegister'
 import Index from '../pages/Index'
 import PageStudent from '../pages/PageStudent'
 import PageTeacher from '../pages/PageTeacher'
-import PageCreateCourse from '../pages/PageCreateCourse'
 import PageAdmin from '../pages/PageAdmin'
 import startApply from '../components/StartApply'
 import createApply from '../components/CreateApply'
-import PageMyCourse from '../pages/PageMyCourse'
-import PageOpenCourse from '../pages/PageOpenCourse'
 import SelectClass from '../components/SelectClass'
 import AllClass from '../components/AllClass'
+import CreateCourse from '../components/CreateCourse'
+import OpenCourse from '../components/OpenCourse'
+import MyCourse from '../components/MyCourse'
+import PageClassDetailTch from '../pages/PageClassDetailTch'
+import CreateTask from '../components/CreateTask'
+import TaskDetailTch from '../components/TaskDetailTch'
 
 export default [
   // {
@@ -60,7 +63,24 @@ export default [
       path: 'AllClass',
       name: 'AllClass',
       component: AllClass
-    }
+    }]
+  },
+  {
+    path: '/tch/detail',
+    name: 'PageClassDetailTch',
+    component: PageClassDetailTch,
+    meta: {
+      requireAuth: true
+    },
+    children: [{
+       path: 'createTask',
+       name: 'createTask',
+       component: CreateTask
+    }, {
+       path: 'taskDetail',
+       name: 'taskDetailTch',
+       component: TaskDetailTch
+      }
     ]
   },
   {
@@ -69,31 +89,26 @@ export default [
     component: PageTeacher,
     meta: {
       requireAuth: true
-    }
-  },
-  {
-    path: '/tch/createCourse',
-    name: 'PageCreateCourse',
-    component: PageCreateCourse,
-    meta: {
-      requireAuth: true
-    }
-  },
-  {
-    path: '/tch/openCourse',
-    name: 'PageOpenCourse',
-    component: PageOpenCourse,
-    meta: {
-      requireAuth: true
-    }
-  },
-  {
-    path: '/tch/myCourse',
-    name: 'PageMyCourse',
-    component: PageMyCourse,
-    meta: {
-      requireAuth: true
-    }
+    },
+    children:[{
+      path: 'createCourse',
+      name: 'createCourse',
+      component: CreateCourse
+    }, {
+      path: 'openCourse',
+      name: 'openCourse',
+      component: OpenCourse,
+      meta: {
+        requireAuth: true
+      }
+    }, {
+      path: 'myCourse',
+      name: 'myCourse',
+      component: MyCourse,
+      meta: {
+        requireAuth: true
+      }
+    }]
   },
   {
     path: '/admin',
@@ -106,10 +121,6 @@ export default [
     }, {
       path: 'startApply',
       name: 'startApply',
-      // components: {
-      //   default: UserProfile,
-      //   helper: UserProfilePreview
-      // }
       component: startApply
     }]
   }

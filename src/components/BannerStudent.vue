@@ -49,7 +49,7 @@
 
 <script>
   export default {
-    name: 'BannerTeacher',
+    name: 'BannerStudent',
     data () {
       return {
         currentUser: JSON.parse(localStorage.getItem('currentUser'))

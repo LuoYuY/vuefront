@@ -8,9 +8,9 @@
           课程管理
         </template>
         <MenuGroup title="">
-          <Menu-Item name="3-1"><a href="/tch/myCourse">我的课程</a></Menu-Item>
-          <Menu-Item name="3-2"><a href="/tch/createCourse">课程创建</a></Menu-Item>
-          <Menu-Item name="3-3"><a href="/tch/openCourse">课程发布</a></Menu-Item>
+          <Menu-Item name="3-1"><router-link to="/tch/myCourse">我的课程</router-link></Menu-Item>
+          <Menu-Item name="3-2"><router-link to="/tch/createCourse">课程创建</router-link></Menu-Item>
+          <Menu-Item name="3-3"><router-link to="/tch/openCourse">课程发布</router-link></Menu-Item>
         </MenuGroup>
 <!--        <MenuGroup title="留存">-->
 <!--          <Menu-Item name="3-4">用户留存</Menu-Item>-->
