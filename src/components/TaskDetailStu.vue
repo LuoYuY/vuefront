@@ -5,11 +5,21 @@
       <h1>{{ this.content }} </h1>
       <h1>{{ this.startTime }} </h1>
       <h1>{{ this.endTime }} </h1>
+      <h3>附件</h3>
+      <p slot="title" v-for="(item,index) in taskWares" :key="index">
+        <a :href="item.filepath">{{ item.filename }}</a>
+      </p>
       <h2>得分</h2>
       <h2>提交状态</h2>
-      <h2>已提交作业</h2>
+      <span v-if="stuTask.status === 1">未完成</span>
+      <span v-if="stuTask.status === 2">已完成 <span>修改时间：{{ stuTask.uploadTime }}</span></span>
+      <br/>
+      <br/>
+      <h2>已提交的作业</h2>
+        <p> <a :href="stuTask.filepath">{{ stuTask.filename }} </a></p>
       <Button @click="showDialog()"  v-if="status === 1">提交作业/修改提交作业</Button>
-
+      <br/>
+      <br/>
       <Modal v-model="add.dialog" title="文件上传" :loading="true" :closable="false" width="540">
         <Tabs>
           <TabPane label="选择文件">
@@ -42,12 +52,20 @@
     data () {
       return {
         currentUser: JSON.parse(localStorage.getItem('currentUser')),
+        stuTask: {
+          filename: '',
+          filepath: '',
+          uploadTime: '',
+          score: null,
+          status: 1
+        },
         taskId: this.$route.query.taskId,
         title: null,
         content: null,
         startTime: null,
         endTime: null,
         status: null,
+        taskWares: [],
         add: {
           dialog: false,
           uploadFile: null
@@ -57,17 +75,68 @@
     },
     mounted: function () {
       this.getTaskDetail()
+      this.getStuTaskDetail()
     },
     methods: {
+      getStuTaskDetail () {
+        this.$axios.get('/stu/getStuTaskDetail?taskId=' + this.taskId + '&studentId=' + this.currentUser.id)
+          .then((response) => {
+            // "data": {
+            //   "taskStu": {
+            //     "id": 8,
+            //       "studentId": 11,
+            //       "taskId": 6,
+            //       "status": 2,
+            //       "filename": "人件读后感.odt",
+            //       "filepath": "http://localhost:8080/download/studentTask/11/人件读后感.odt",
+            //       "uploadTime": "2020-11-06 02:09:06",
+            //       "score": null
+            //   }
+            // }
+            let taskStu = response.data.data.taskStu
+            if (taskStu != null) {
+                this.stuTask.filename = taskStu.filename
+                this.stuTask.filepath = taskStu.filepath
+                this.stuTask.uploadTime = taskStu.uploadTime
+                this.stuTask.score = taskStu.score
+                this.stuTask.status = taskStu.status
+            }
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+          .then(function () {
+            // always executed
+          })
+      },
       getTaskDetail () {
+            // {
+            //   "filename": "人件读后感.odt",
+            //   "filepath": "http://localhost:8080/download/task/4/人件读后感.odt",
+            //   "uploadDate": 1604505600000,
+            //   "id": 1,
+            //   "taskId": 4
+            // }
         this.$axios.get('/tch/getTaskDetail?taskId=' + this.taskId)
           .then((response) => {
-            let task = response.data.data
+            let task = response.data.data.task
             this.title = task.title
             this.content = task.content
             this.startTime = task.startTime.substr(0, 19)
             this.endTime = task.endTime.substr(0, 19)
             this.status = task.status
+            if (response.data.data.taskWare !== null) {
+              let array = []
+              array = JSON.parse(JSON.stringify(response.data.data.taskWare))
+              for (let i = 0; i < array.length; i++) {
+                const obj = { // 关键！ 创建一个新对象
+                  filename: array[i].filename,
+                  filepath: array[i].filepath
+                }
+                this.taskWares.push(obj)
+                // console.log(this.courses)
+              }
+            }
           })
           .catch(function (error) {
             console.log(error)
@@ -113,6 +182,7 @@
               this.add.uploadFile = null
               this.$Message.success('Success')
               this.add.dialog = false
+              this.getStuTaskDetail()
               // this.getDetail(this.courseId)
             }
           })

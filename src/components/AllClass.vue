@@ -84,7 +84,6 @@
       },
       getDetail (classId, courseId) {
         this.courseWare = []
-        alert('courseId:' + courseId)
         // this.classId = courseId
         // 课程信息填充
         this.$axios.get('/tch/getCourseDetail?courseId=' + courseId)

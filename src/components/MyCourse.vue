@@ -170,7 +170,6 @@
             formData.append('uploadFile', this.add.uploadFile[i]) // 文件对象
           }
           // console.log(formData)
-          alert('courseId' + this.courseId)
           formData.append('courseId', this.courseId)
           this.$axios.post('/tch/uploadFile', formData, {
             timeout: 10000,
@@ -197,7 +196,6 @@
         }
       },
       download (url) {
-        alert(url)
         this.$axios.get(url)
           .then((response) => {
             console.log(response)
