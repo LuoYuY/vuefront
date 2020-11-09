@@ -1,6 +1,5 @@
 <template>
 <div id="pageLogin">
-  <banner></banner>
   <div class="content">
      <login-form></login-form>
      <copy-right></copy-right>
@@ -10,12 +9,10 @@
 
 <script>
   import LoginForm from '../components/LoginForm'
-  import Banner from '../components/Banner'
   export default {
     name: 'PageLogin',
     components:{
-      'login-form': LoginForm,
-      'banner': Banner
+      'login-form': LoginForm
     }
   }
 </script>

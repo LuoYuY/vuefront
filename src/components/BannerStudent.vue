@@ -1,28 +1,29 @@
 <template>
   <div id="banner">
     <Menu mode="horizontal">
-      <Menu-Item name="1">
+      <Menu-Item name="1" @click.native="toSelectClass">
         <Icon type="ios-paper" />
-        <router-link to="/stu/selectClass">选课</router-link>
+        <a> 选课 </a>
+<!--        <router-link to="/stu/selectClass">选课</router-link>-->
       </Menu-Item>
-      <Submenu name="4">
-        <template slot="title">
-          <Icon type="ios-stats" />
-          课程管理
-        </template>
-        <MenuGroup title="">
-          <Menu-Item name="3-1"><router-link to="/stu/allClass">我的课程</router-link></Menu-Item>
-          <Menu-Item name="3-2"><a href="#">BBBB</a></Menu-Item>
-          <Menu-Item name="3-3"><a href="#">AAAAA</a></Menu-Item>
-        </MenuGroup>
+<!--      <Submenu name="4">-->
+<!--        <template slot="title">-->
+<!--          <Icon type="ios-stats" />-->
+<!--          课程管理-->
+<!--        </template>-->
+<!--        <MenuGroup title="">-->
+<!--          <Menu-Item name="3-1"><router-link to="/stu/allClass">我的课程</router-link></Menu-Item>-->
+<!--          <Menu-Item name="3-2"><a href="#">BBBB</a></Menu-Item>-->
+<!--          <Menu-Item name="3-3"><a href="#">AAAAA</a></Menu-Item>-->
+<!--        </MenuGroup>-->
         <!--        <MenuGroup title="留存">-->
         <!--          <Menu-Item name="3-4">用户留存</Menu-Item>-->
         <!--          <Menu-Item name="3-5">流失用户</Menu-Item>-->
         <!--        </MenuGroup>-->
-      </Submenu>
-      <Menu-Item name="2">
+<!--      </Submenu>-->
+      <Menu-Item name="2" @click.native="toAllClass">
         <Icon type="ios-people" />
-        用户管理
+        <a>我的课程</a>
       </Menu-Item>
       <Menu-Item name="5" style="float: right" v-if="currentUser === null">
         <Icon type="ios-people" />
@@ -60,6 +61,12 @@
         this.$store.commit('REMOVE_COUNT', this.$store.state.token)
         localStorage.removeItem('currentUser')
         this.$router.push('/sign_in')
+      },
+      toSelectClass: function () {
+        this.$router.push({path:'/stu/selectClass'})
+      },
+      toAllClass: function () {
+        this.$router.push({path:'/stu/allClass'})
       }
     }
   }

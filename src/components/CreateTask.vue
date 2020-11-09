@@ -74,6 +74,7 @@
         return false
       },
       cancelUpload () {
+        this.$router.go(-1)
       },
       upload () {
         this.loadingStatus = true

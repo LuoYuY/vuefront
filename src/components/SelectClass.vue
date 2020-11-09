@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="selectClass">
     <Table :row-class-name="rowClassName" :columns="columns1" :data="data1"></Table>
   </div>
 </template>
@@ -12,48 +12,70 @@
       return {
       columns1: [
           {
-            title: '课程编号',
-            key: 'id'
+            title: '编号',
+            key: 'id',
+            width: '80%',
+            align: 'center'
           },
           {
             title: '课程',
-            key: 'courseName'
+            key: 'courseName',
+            width: '100%',
+            align: 'center'
           },
           {
             title: '名称',
-            key: 'name'
+            key: 'name',
+            width: '200%',
+            align: 'center'
           },
           {
             title: '开课学期',
-            key: 'semesterName'
+            key: 'semesterName',
+            width: '120%',
+            align: 'center'
           },
           {
             title: '开始日期',
-            key: 'startDate'
+            key: 'startDate',
+            width: '110%',
+            align: 'center'
           },
           {
             title: '结束日期',
-            key: 'endDate'
+            key: 'endDate',
+            width: '110%',
+            align: 'center'
           },
           {
             title: '开课学期',
-            key: 'semesterName'
+            key: 'semesterName',
+            width: '120%',
+            align: 'center'
           },
           {
             title: '开课年级',
-            key: 'gradeName'
+            key: 'gradeName',
+            width: '90%',
+            align: 'center'
           },
           {
             title: '限选人数',
-            key: 'maxNum'
+            key: 'maxNum',
+            width: '90%',
+            align: 'center'
           },
           {
             title: '已选人数',
-            key: 'num'
+            key: 'num',
+            width: '90%',
+            align: 'center'
           },
           {
             title: '课程状态',
             key: 'status',
+            width: '90%',
+            align: 'center',
             render: (h, params) => {
               if (params.row.status === '未开课') {
                 return h('span', {
@@ -73,7 +95,6 @@
           {
             title: '选课',
             key: 'select',
-            width: '300px',
             render: (h, params) => {
               if (this.isSelected(params.row.id)) {
                 return h('div', [
@@ -264,5 +285,7 @@
 </script>
 
 <style scoped>
-
+#selectClass {
+  margin:100px 10% 0px 10%;
+}
 </style>

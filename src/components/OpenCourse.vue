@@ -1,6 +1,7 @@
 <template>
 <div id="openCourse">
   <div class="content">
+    <div class="up">
     <Form ref="formInline" :model="formInline" :rules="ruleInline">
       <FormItem prop="title">
         <span>课程名称</span>
@@ -52,15 +53,14 @@
           <Option :value="item.id" v-for="item in semesterList" v-bind:key="item.id">{{ item.year }}学年 第{{ item.term }}学期</Option>
         </Select>
       </FormItem>
-      <FormItem>
+      <FormItem style="float:right;">
         <Button type="primary" @click="handleSubmit('formInline')">Signin</Button>
       </FormItem>
-
-      <br/>
-      <br/>
-      <h1>申请记录</h1>
-      <Table :row-class-name="rowClassName" :columns="columns1" :data="data1"></Table>
-    </Form>
+    </Form></div>
+    <br/>
+    <br/>
+    <h1>申请记录</h1>
+    <Table :row-class-name="rowClassName" :columns="columns1" :data="data1"></Table>
   </div>
 </div>
 </template>
@@ -321,9 +321,12 @@
     justify-content: center;
   }
   .content {
-    width: 90%;
-    margin-top:100px;
+    width: 80%;
     padding:10px 10px 10px 10px;
     background: white;
+  }
+  .up {
+    width: 50%;
+    margin: 0 auto;
   }
 </style>

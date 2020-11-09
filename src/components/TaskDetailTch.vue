@@ -1,19 +1,30 @@
 <template>
 <div>
-  <h1>{{ this.title }} </h1>
-  <h1>{{ this.content }} </h1>
-  <h1>{{ this.startTime }} </h1>
-  <h1>{{ this.endTime }} </h1>
-  <h1>{{ this.sum }} </h1>
-  <h1>{{ this.finishedSum }} </h1>
-  <h3>附件</h3>
-  <p slot="title" v-for="(item,index) in taskWares" :key="index">
-    <a :href="item.filepath">{{ item.filename }}</a>
-  </p>
-  <span v-if="this.status === 1">未结束</span>
-  <span v-if="this.status === 2">已结束</span>
-
-  <h1>完成情况</h1>
+  <div class="content">
+    <p class="left">作业名称 </p>
+    <p class="right">{{ this.title }} </p>
+    <p class="left">作业内容</p>
+    <p class="right">{{ this.content }} </p>
+    <p class="left">开始时间</p>
+    <p class="right">{{ this.startTime }} </p>
+    <p class="left">结束时间</p>
+    <p class="right">{{ this.endTime }}</p>
+    <p class="left">总人数</p>
+    <p class="right"> {{ this.sum }} </p>
+    <p class="left">完成人数</p>
+    <p class="right">{{ this.finishedSum }} </p>
+    <p class="left">附件</p>
+    <div class="right">
+    <p slot="title" v-for="(item,index) in taskWares" :key="index">
+      <a :href="item.filepath">{{ item.filename }}</a>
+    </p>
+    </div>
+    <p class="left">状态</p>
+    <div class="right"><span v-if="this.status === 1">未结束</span>
+      <span v-if="this.status === 2">已结束</span></div>
+  </div>
+  <div class="content2">
+  <h3>完成情况</h3>
   <Button v-on:click="downloadExcel()">下载评分单（excel）</Button>
   <Button @click="showDialog()">上传成绩单（excel）</Button>
   <br/>
@@ -40,10 +51,12 @@
       </Button>
     </div>
   </Modal>
+
     <div>
       <Table :columns="historyColumns" :data="historyData"></Table>
       <Page :total="dataCount" :page-size="pageSize" show-total @on-change="changepage"></Page>
     </div>
+  </div>
 </div>
 </template>
 
@@ -104,11 +117,13 @@
             render: (h, params) => {
               if (params.row.status === '已完成') {
                 return h('a', {
-                  attrs: {
-                    href: params.row.filepath
-                  },
                   style: {
                     display: 'block'
+                  },
+                  on: {
+                    click: () => {
+                      this.downloadFile(params.row.filename, params.row.filepath)
+                    }
                   }
                 }, '下载')
               }
@@ -158,6 +173,18 @@
           .then(function () {
             // always executed
           })
+      },
+      downloadFile (fileName, data) {
+        if (!data) {
+          return
+        }
+        let url = window.URL.createObjectURL(new Blob([data]))
+        let link = document.createElement('a')
+        link.style.display = 'none'
+        link.href = url
+        link.setAttribute('download', fileName)
+        document.body.appendChild(link)
+        link.click()
       },
       getTaskStatus () {
         this.ajaxHistoryData = []
@@ -283,5 +310,30 @@
 </script>
 
 <style scoped>
+  .content {
+    width: 100%;
+    padding: 10px 10px 10px 10px;
+    background: white;
+    display: grid;
+    grid-template-columns: 10% 50%;
+    margin-bottom: 20px;
+    /*border: gray solid 2px;*/
+    /*grid-template-rows: repeat(2, 50%);*/
+    /*display: flex;*/
+  }
+  .left {
+    font-size: 15px;
+    font-weight: 900;
+    margin-top: 10px;
+  }
+  .content2 {
+    width: 100%;
+    padding: 10px 10px 10px 10px;
+  }
+
+  .right {
+    font-size: 15px;
+    margin-top: 10px;
+  }
 
 </style>

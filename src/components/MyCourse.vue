@@ -2,16 +2,6 @@
   <div id="MyCourse">
     <div class="content">
         <aside class="left">
-<!--          <Collapse>-->
-<!--            <Panel v-for="(item,index) in courses" :key="index">-->
-<!--              {{ item.name }}-->
-<!--              <div slot="content">-->
-<!--                <div>HHH</div>-->
-<!--                <div>HHHHH</div>-->
-<!--                <div>HHHHHHH</div>-->
-<!--              </div>-->
-<!--            </Panel>-->
-<!--          </Collapse>-->
           <div style="background:#eee;padding: 20px" >
             <Card :bordered="false"  v-for="(item,index) in courses" :key="index">
               <p slot="title"> <a v-on:click="getDetail(item.id)">{{ item.name }} </a></p>
@@ -19,26 +9,25 @@
           </div>
         </aside>
         <section class="right">
-<!--          <router-view></router-view>-->
-          <h1>{{ courseName }}</h1>
-          <h1>小班目录</h1>
-          <h2>进行中</h2>
-          <h3 v-for="(item,index) in classes" :key="index" >
-            <router-link target="_blank" :to="{path:'/tch/detail',query:{id: item.id}}">{{ item.name }}</router-link></h3>
-          <h2>已结束</h2>
-          <h3>结束了的小班链接</h3>
-          <h1>课件目录</h1>
-          <div style="background:#eee;padding: 20px" >
-            <Card :bordered="false"  v-for="(item,index) in courseWare" :key="index">
-              <p slot="title"> <a :href="item.filepath">{{ item.filename }} </a></p>
-            </Card>
+          <h1 style="margin-bottom: 20px">{{ courseName }}</h1>
+          <h2 v-if="courseId!==null" style="margin-bottom: 10px">小班目录</h2>
+<!--          <h2>进行中</h2>-->
+          <div v-for="(item,index) in classes" :key="index" style="font-size: 20px;margin-bottom: 10px">
+            <Icon type="ios-cube" size=20 style="display: inline-block"/>
+            <router-link target="_blank" :to="{path:'/tch/detail',query:{id: item.id}}">{{ item.name }}</router-link>
           </div>
-          <h2>课件下载链接</h2> <span>删除按钮</span>
-          <h1>课件上传</h1>
-          <h3>课件上传框</h3>
-          <Button @click="showDialog()">文件上传</Button>
-          <h1>论坛</h1>
-
+          <div>
+            <h2 v-if="courseId!==null" style="margin-bottom: 10px;margin-top: 30px;display: inline-block">课件目录</h2>
+            <Button v-if="courseId!==null" @click="showDialog()" style="display: inline-block;margin-left: 30px">上传课件</Button>
+          </div>
+          <div v-if="courseId!==null" style="background:#eee;padding: 5px" >
+            <div v-for="(item,index) in courseWare" :key="index" style="font-size: 15px;margin-top: 5px;margin-bottom: 5px;">
+              <Icon type="ios-attach" size=15 style="display: inline-block"/>
+                   <a v-on:click="downloadFile(item.filename, item.filepath)" >{{ item.filename }}</a>
+<!--              <a download="" :href="item.filepath">{{ item.filename }} </a>-->
+              <Icon  style="cursor:pointer;margin-left: 10px" size="20" v-on:click="deleteWare(item.id)" type="ios-close-circle-outline" />
+            </div>
+          </div>
           <Modal v-model="add.dialog" title="文件上传" :loading="true" :closable="false" width="540">
             <Tabs>
               <TabPane label="选择文件">
@@ -56,7 +45,7 @@
               </TabPane>
             </Tabs>
             <div slot="footer">
-              <Button type="text" size="large" @click="cancleUpload">取消</Button>
+              <Button type="text" size="large" @click="cancelUpload">取消</Button>
               <Button
                 type="primary"
                 @click="upload"
@@ -70,6 +59,7 @@
 </template>
 
 <script>
+  import qs from 'qs'
   export default {
     name: 'MyCourse',
     data () {
@@ -154,6 +144,37 @@
             // always executed
           })
       },
+      downloadFile (fileName, data) {
+        if (!data) {
+          return
+        }
+        let url = window.URL.createObjectURL(new Blob([data]))
+        let link = document.createElement('a')
+        link.style.display = 'none'
+        link.href = url
+        link.setAttribute('download', fileName)
+        document.body.appendChild(link)
+        link.click()
+      },
+      deleteWare (courseWareId) {
+        if (window.confirm('确认删除吗')) {
+          alert(courseWareId)
+          let data = {
+            courseWareId: courseWareId
+          }
+          this.$axios.post('/tch/deleteCourseWare', qs.stringify(data))
+            .then((response) => {
+              this.$Message.success('Success')
+              this.getDetail(this.courseId)
+            })
+            .catch(function (error) {
+              console.log(error)
+            })
+            .then(function () {
+              // always executed
+            })
+        } else {}
+      },
       delFileList (index) {
         this.add.uploadFile.splice(index, 1)
       },
@@ -195,6 +216,9 @@
           this.$Message.error('请至少上传一个文件')
         }
       },
+      cancelUpload () {
+        this.add.dialog = false
+      },
       download (url) {
         this.$axios.get(url)
           .then((response) => {
@@ -227,9 +251,10 @@
   }
 
   .left {
-    flex: 0 0 400px; /* 左侧固定200px */
+    flex: 0 0 25%; /* 左侧固定200px */
     height: 500px;
-    background: lightblue;
+    background: white;
+    margin-right: 20px;
   }
   .right {
     /* 此处解释下
@@ -237,8 +262,9 @@
     0%表示此处宽度是按照自身内容宽度来，此处自身内容宽度为0，但是分配剩余的空间，所以可以自适应变化
      */
     flex: 1; /* 随父级变化 */
-    height: 500px;
-    background: burlywood;
+    background: white;
+    padding: 10px;
+    border: 5px solid rgba(219, 224, 230, 0.93);
   }
 </style>
 <style>

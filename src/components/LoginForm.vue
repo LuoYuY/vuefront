@@ -9,11 +9,7 @@
         <component v-bind:is="component"></component>
       </keep-alive>
       <div class="socialLogin">
-        <span>社交帐号登录</span>
-        <span>
-          <button v-on:click="wechatLogin">Wechat</button>
-          <button v-on:click="qqLogin">QQ</button>
-        </span>
+        没有帐号？<router-link :to="{path:'/register'}">注册</router-link>
       </div>
     </div>
   </div>
@@ -75,7 +71,7 @@
     content: "";
     width: 100%;
     height: 3px;
-    background-color: #be0cff;
+    background-color: #3aa0ff;
   }
   .tab{
     position: relative;

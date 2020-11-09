@@ -19,11 +19,11 @@ import TaskDetailTch from '../components/TaskDetailTch'
 import PageTaskDetailStu from '../pages/PageTaskDetailStu'
 
 export default [
-  // {
-  //   path: '/',
-  //   name: 'HelloWorld',
-  //   component: HelloWorld
-  // },
+  {
+    path: '/',
+    name: 'index',
+    component: PageLogin
+  },
   {
     path: '/index',
     name: 'Index',

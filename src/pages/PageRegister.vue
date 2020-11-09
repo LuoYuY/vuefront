@@ -1,6 +1,6 @@
 <template>
   <div id="pageLogin">
-    <banner></banner>
+<!--    <banner></banner>-->
     <div class="content">
       <register-form></register-form>
     </div>
@@ -9,12 +9,12 @@
 </template>
 <script>
   import RegisterForm from '../components/RegisterForm'
-  import Banner from '../components/Banner'
+  // import Banner from '../components/Banner'
   export default {
     name: 'PageRegister',
     components:{
-      'register-form': RegisterForm,
-      'banner': Banner
+      'register-form': RegisterForm
+      // 'banner': Banner
     }
   }
 </script>

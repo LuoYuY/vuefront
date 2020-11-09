@@ -2,32 +2,17 @@
   <div id="ClassDetailTch">
     <div class="content">
       <aside class="left">
-        <Button v-on:click="toCreateTask()">发布作业</Button>
-        <Button>发布考试</Button>
-        <h1>作业</h1>
-        <div style="background:#eee;padding: 20px" >
-          <Card :bordered="false"  v-for="(item,index) in tasks" :key="index">
+        <div style="margin-bottom: 20px">
+          <Button v-on:click="toCreateTask()">发布作业</Button>
+          <Button>发布考试</Button>
+        </div>
+        <h1 style="font-size: 20px">作业</h1>
+        <div style="background:#eee;padding: 20px;margin-bottom: 20px">
+          <Card :bordered="false" v-for="(item,index) in tasks" :key="index">
             <p style="cursor:pointer" slot="title" v-on:click="toTaskDetail(item.id)">{{ item.name }}</p>
           </Card>
-<!--          <span style="cursor:auto">auto</span><br>-->
-<!--          <span style="cursor:crosshair">crosshair</span><br>-->
-<!--          <span style="cursor:default">default</span><br>-->
-<!--          <span style="cursor:e-resize">e-resize</span><br>-->
-<!--          <span style="cursor:help">help</span><br>-->
-<!--          <span style="cursor:move">move</span><br>-->
-<!--          <span style="cursor:n-resize">n-resize</span><br>-->
-<!--          <span style="cursor:ne-resize">ne-resize</span><br>-->
-<!--          <span style="cursor:nw-resize">nw-resize</span><br>-->
-<!--          <span style="cursor:pointer">pointer</span><br>-->
-<!--          <span style="cursor:progress">progress</span><br>-->
-<!--          <span style="cursor:s-resize">s-resize</span><br>-->
-<!--          <span style="cursor:se-resize">se-resize</span><br>-->
-<!--          <span style="cursor:sw-resize">sw-resize</span><br>-->
-<!--          <span style="cursor:text">text</span><br>-->
-<!--          <span style="cursor:w-resize">w-resize</span><br>-->
-<!--          <span style="cursor:wait">wait</span><br>-->
         </div>
-        <h1>考试</h1>
+        <h1 style="font-size: 20px">考试</h1>
         <p>考试名称</p>
       </aside>
       <section class="right">
@@ -48,19 +33,19 @@
       }
     },
     mounted: function () {
-       this.getTasks()
+      this.getTasks()
     },
-    computed:{
+    computed: {
       key () {
         return this.$route.name ? this.$route.name + new Date() : this.$route + +new Date()
       }
     },
     methods: {
       toCreateTask () {
-        this.$router.push({name:'createTask', query:{classId:this.classId}})
+        this.$router.push({name: 'createTask', query: {classId: this.classId}})
       },
       toTaskDetail (taskId) {
-        this.$router.push({name:'taskDetailTch', query:{taskId:taskId}})
+        this.$router.push({name: 'taskDetailTch', query: {taskId: taskId}})
       },
       getTasks () {
         this.tasks = []
@@ -104,24 +89,30 @@
   }
 
   .left {
-    flex: 0 0 400px; /* 左侧固定200px */
+    flex: 0 0 25%; /* 左侧固定200px */
     height: 500px;
-    background: lightblue;
+    background: #dbe0e6;
+    margin-right: 20px;
+    padding: 10px;
   }
+
   .right {
     /* 此处解释下
     flex: 1 1 0%
     0%表示此处宽度是按照自身内容宽度来，此处自身内容宽度为0，但是分配剩余的空间，所以可以自适应变化
      */
     flex: 1; /* 随父级变化 */
-    height: 500px;
-    background: burlywood;
+    min-height: 500px;
+    background: white;
+    border: 3px solid #dbe0e6;
+    padding:10px;
   }
 </style>
 <style>
   .ivu-card-body {
     display: none;
   }
+
   a {
     text-decoration: none;
   }
