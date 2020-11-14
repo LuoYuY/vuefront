@@ -1,9 +1,18 @@
 # vuefront
 
-> A vue project for my blog
+> VueCLI搭建的前端项目 为MyCourse提供前端
 
-## Build Setup
+## 启动项目
+# 后端
+``` 
+来自我的项目 blog 启动SpringBooot
+```
 
+# 数据库
+```
+见Mysql.txt
+```
+# 安装启动
 ``` bash
 # install dependencies
 npm install
@@ -26,5 +35,3 @@ npm run e2e
 # run all tests
 npm test
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
