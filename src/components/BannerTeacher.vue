@@ -8,9 +8,10 @@
           课程管理
         </template>
         <MenuGroup title="">
-          <Menu-Item name="3-1"><router-link to="/tch/myCourse">我的课程</router-link></Menu-Item>
           <Menu-Item name="3-2"><router-link to="/tch/createCourse">课程创建</router-link></Menu-Item>
           <Menu-Item name="3-3"><router-link to="/tch/openCourse">课程发布</router-link></Menu-Item>
+          <Menu-Item name="3-3"><router-link to="/tch/showCreate">课程创建记录</router-link></Menu-Item>
+          <Menu-Item name="3-3"><router-link to="/tch/showOpen">课程发布记录</router-link></Menu-Item>
         </MenuGroup>
 <!--        <MenuGroup title="留存">-->
 <!--          <Menu-Item name="3-4">用户留存</Menu-Item>-->
@@ -19,12 +20,12 @@
       </Submenu>
       <Menu-Item name="1">
         <Icon type="ios-paper" />
-        内容管理
+        <router-link to="/tch/myCourse">我的课程</router-link>
       </Menu-Item>
-      <Menu-Item name="2">
-        <Icon type="ios-people" />
-        用户管理
-      </Menu-Item>
+<!--      <Menu-Item name="2">-->
+<!--        <Icon type="ios-people" />-->
+<!--        用户管理-->
+<!--      </Menu-Item>-->
       <Menu-Item name="5" style="float: right" v-if="currentUser === null">
         <Icon type="ios-people" />
         <a href="sign_in">登录</a>

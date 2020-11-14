@@ -13,7 +13,9 @@
       <div class="right">
         <p slot="title" v-for="(item,index) in taskWares" :key="index">
           <Icon type="ios-attach" size=20 style="display: inline-block"/>
-          <a v-on:click="downloadFile(item.filename, item.filepath)" >{{ item.filename }}</a>
+<!--          <a v-on:click="downloadFile(item.filename, item.filepath)" >{{ item.filename }}</a>-->
+          <a v-on:click="toDownload(item.filename)" >{{ item.filename }}</a>
+
         </p>
       </div>
       <p class="left">提交状态</p>
@@ -22,7 +24,10 @@
         <span v-if="stuTask.status === 2">已完成 <span>修改时间：{{ stuTask.uploadTime }}</span></span>
       </div>
       <p class="left">已提交的作业</p>
-      <p class="right"><a :href="stuTask.filepath">{{ stuTask.filename }} </a></p>
+      <p class="right">
+        <a v-on:click="toDownloadTask(stuTask.filename)" >{{ stuTask.filename }}</a>
+<!--        <a :href="stuTask.filepath">{{ stuTask.filename }} </a>-->
+      </p>
       <p class="left">得分</p>
       <p class="right"><span>{{ stuTask.score }}</span></p>
       <p class="left"></p>
@@ -204,6 +209,55 @@
           this.loadingStatus = false
           this.$Message.error('请至少上传一个文件')
         }
+      },
+      toDownload (filename) {
+        let url = '/course/taskWareDownload?taskId=' + this.taskId + '&file=' + filename
+        this.$axios({
+          method: 'get',
+          url: url,
+          responseType: 'blob'
+        }).then(res => {
+          console.log(res)
+          this.download(res.data, filename)
+        })
+          .catch(err => {
+            console.log(err)
+            if (err.response.status === 400) {
+              this.$Message.error('下载出错，文件可能不存在！！')
+            }
+          })
+      },
+      toDownloadTask (filename) {
+        let url = '/course/taskDownload?studentId=' + this.currentUser.id + '&file=' + filename
+        this.$axios({
+          method: 'get',
+          url: url,
+          responseType: 'blob'
+        }).then(res => {
+          console.log(res)
+          this.download(res.data, filename)
+        })
+          .catch(err => {
+            console.log(err)
+            if (err.response.status === 400) {
+              this.$Message.error('下载出错，文件可能不存在！！')
+            }
+          })
+      },
+      // 下载文件
+      download (data, filename) {
+        if (!data) {
+          return
+        }
+        let url = window.URL.createObjectURL(new Blob([data]))
+        let link = document.createElement('a')
+        link.style.display = 'none'
+        link.href = url
+        link.setAttribute('download', filename)
+        document.body.appendChild(link)
+        link.click()
+        // this.$Message.info('下载完成！')
+        this.cancel()
       }
     }
   }

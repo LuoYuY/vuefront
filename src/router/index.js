@@ -17,6 +17,8 @@ import PageClassDetailTch from '../pages/PageClassDetailTch'
 import CreateTask from '../components/CreateTask'
 import TaskDetailTch from '../components/TaskDetailTch'
 import PageTaskDetailStu from '../pages/PageTaskDetailStu'
+import ShowOpen from '../components/ShowOpen'
+import ShowCreate from '../components/ShowCreate'
 
 export default [
   {
@@ -114,6 +116,20 @@ export default [
       path: 'myCourse',
       name: 'myCourse',
       component: MyCourse,
+      meta: {
+        requireAuth: true
+      }
+    }, {
+      path: 'showCreate',
+      name: 'showCreate',
+      component: ShowCreate,
+      meta: {
+        requireAuth: true
+      }
+    }, {
+      path: 'showOpen',
+      name: 'showOpen',
+      component: ShowOpen,
       meta: {
         requireAuth: true
       }

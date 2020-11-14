@@ -71,7 +71,7 @@
     content: "";
     width: 100%;
     height: 3px;
-    background-color: #3aa0ff;
+    background-color: rgba(122, 106, 114, 0.95);
   }
   .tab{
     position: relative;

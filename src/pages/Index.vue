@@ -23,7 +23,7 @@
     margin: 0;
   }
   .content {
-    background-image: url('../assets/backgroud1.jpg');
+    background-image: url('../assets/background.jpg');
     background-repeat: repeat-x;
     background-position: center;
     background-size: 100% 100%;

@@ -61,6 +61,9 @@
 <!--      <input v-model="user_id" type="text" placeholder="id"/>-->
 <!--      <label>密码：</label><input v-model="password" type="password"/>-->
 <!--      <label>重复密码</label><input v-model="re_password" type="password"/>-->
+      <div class="socialLogin" style="float: right">
+        已有帐号？<router-link :to="{path:'/sign_in'}">登录</router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -174,7 +177,7 @@
     content: "";
     width: 100%;
     height: 3px;
-    background-color: #3aa0ff;
+    background-color: rgba(122, 106, 114, 0.95);
   }
   .tab{
     position: relative;

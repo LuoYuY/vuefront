@@ -24,7 +24,9 @@
           <div v-for="(item,index) in courseWare" :key="index">
             <Icon type="ios-attach" size=20 style="display: inline-block"/>
 <!--            <a style="font-size: 15px" :href="item.filepath">{{ item.filename }} </a>-->
-            <a style="font-size: 15px" v-on:click="downloadFile(item.filename, item.filepath)" >{{ item.filename }}</a>
+<!--            <a style="font-size: 15px" v-on:click="downloadFile(item.filename, item.filepath)" >{{ item.filename }}</a>-->
+            <a style="font-size: 15px" v-on:click="toDownload(item.filename)" >{{ item.filename }}</a>
+
           </div>
         </div>
         <h1 v-if="tasks.length > 0" style="margin-top:30px">作业目录</h1>
@@ -44,6 +46,7 @@
       return {
         currentUser: JSON.parse(localStorage.getItem('currentUser')),
         courseName: null,
+        courseId: null,
         // courseId: null,
         classes: [],
         courseWare: [],
@@ -105,6 +108,7 @@
           .then((response) => {
             // console.log(response)
             this.courseName = response.data.data.course.name
+            this.courseId = courseId
             let array = []
             array = JSON.parse(JSON.stringify(response.data.data.courseWare))
             for (let i = 0; i < array.length; i++) {
@@ -144,6 +148,38 @@
           .then(function () {
             // always executed
           })
+      },
+      toDownload (filename) {
+        let url = '/course/courseWareDownload?courseId=' + this.courseId + '&file=' + filename
+        this.$axios({
+          method: 'get',
+          url: url,
+          responseType: 'blob'
+        }).then(res => {
+          console.log(res)
+          this.download(res.data, filename)
+        })
+          .catch(err => {
+            console.log(err)
+            if (err.response.status === 400) {
+              this.$Message.error('下载出错，文件可能不存在！！')
+            }
+          })
+      },
+      // 下载文件
+      download (data, filename) {
+        if (!data) {
+          return
+        }
+        let url = window.URL.createObjectURL(new Blob([data]))
+        let link = document.createElement('a')
+        link.style.display = 'none'
+        link.href = url
+        link.setAttribute('download', filename)
+        document.body.appendChild(link)
+        link.click()
+        // this.$Message.info('下载完成！')
+        this.cancel()
       }
     }
   }

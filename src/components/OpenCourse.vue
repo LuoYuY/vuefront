@@ -9,12 +9,6 @@
           <Option :value="item.id" v-for="item in courseList" v-bind:key="item.id">{{ item.name }}</Option>
         </Select>
       </FormItem>
-      <!--        <FormItem prop="time">-->
-      <!--          <i-input type="password" v-model="formInline.password" placeholder="Password">-->
-      <!--            <Icon type="ios-lock-outline" slot="prepend"></Icon>-->
-      <!--&lt;!&ndash;            <span slot="append">.com</span>&ndash;&gt;-->
-      <!--          </i-input>-->
-      <!--        </FormItem>-->
       <FormItem prop="className">
         <i-input type="text" v-model="formInline.className" placeholder="">
           <span slot="prepend">课程名称</span>
@@ -54,13 +48,13 @@
         </Select>
       </FormItem>
       <FormItem style="float:right;">
-        <Button type="primary" @click="handleSubmit('formInline')">Signin</Button>
+        <Button type="primary" @click="handleSubmit('formInline')">提交</Button>
       </FormItem>
     </Form></div>
     <br/>
     <br/>
-    <h1>申请记录</h1>
-    <Table :row-class-name="rowClassName" :columns="columns1" :data="data1"></Table>
+<!--    <h1>申请记录</h1>-->
+<!--    <Table :row-class-name="rowClassName" :columns="columns1" :data="data1"></Table>-->
   </div>
 </div>
 </template>
@@ -208,8 +202,6 @@
     },
     methods: {
       handleSubmit (name) {
-        alert(this.formInline.starttime)
-        alert(this.formInline.title)
         this.$refs[name].validate((valid) => {
           if (valid) {
             let data = {
@@ -251,7 +243,6 @@
         this.formInline.endTimeOptions = {
           disabledDate: date => {
             let startTime = this.formInline.starttime ? new Date(this.formInline.starttime).valueOf() : ''
-            alert(date)
             return date && (date.valueOf() < startTime)
             // return date && (date.valueOf() < startDate-86400000 || date.valueOf() > Date.now()-86400000) ;  此约束为当日之前开始日期之后
           }

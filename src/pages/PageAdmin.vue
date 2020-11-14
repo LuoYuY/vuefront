@@ -3,24 +3,24 @@
     <Layout>
       <Header>
         <Menu mode="horizontal" theme="dark" active-name="1">
-          <div class="layout-logo"></div>
+          <div class="layout-logo" style="color: white">ADMIN</div>
           <div class="layout-nav">
-            <Menu-Item name="1">
-              <Icon type="ios-navigate"></Icon>
-              Item 1
-            </Menu-Item>
-            <Menu-Item name="2">
-              <Icon type="ios-keypad"></Icon>
-              Item 2
-            </Menu-Item>
-            <Menu-Item name="3">
-              <Icon type="ios-analytics"></Icon>
-              Item 3
-            </Menu-Item>
-            <Menu-Item name="4">
-              <Icon type="ios-paper"></Icon>
-              Item 4
-            </Menu-Item>
+<!--            <Menu-Item name="1">-->
+<!--              <Icon type="ios-navigate"></Icon>-->
+<!--              Item 1-->
+<!--            </Menu-Item>-->
+<!--            <Menu-Item name="2">-->
+<!--              <Icon type="ios-keypad"></Icon>-->
+<!--              Item 2-->
+<!--            </Menu-Item>-->
+<!--            <Menu-Item name="3">-->
+<!--              <Icon type="ios-analytics"></Icon>-->
+<!--              Item 3-->
+<!--            </Menu-Item>-->
+<!--            <Menu-Item name="4">-->
+<!--              <Icon type="ios-paper"></Icon>-->
+<!--              Item 4-->
+<!--            </Menu-Item>-->
           </div>
         </Menu>
       </Header>
@@ -38,24 +38,24 @@
               <Menu-Item name="1-2">
                 <router-link to="/admin/startApply">发布申请</router-link>
               </Menu-Item>
-              <Menu-Item name="1-3">Option 3</Menu-Item>
+<!--              <Menu-Item name="1-3">Option 3</Menu-Item>-->
             </Submenu>
-            <Submenu name="2">
-              <template slot="title">
-                <Icon type="ios-keypad"></Icon>
-                Item 2
-              </template>
-              <Menu-Item name="2-1">Option 1</Menu-Item>
-              <Menu-Item name="2-2">Option 2</Menu-Item>
-            </Submenu>
-            <Submenu name="3">
-              <template slot="title">
-                <Icon type="ios-analytics"></Icon>
-                Item 3
-              </template>
-              <Menu-Item name="3-1">Option 1</Menu-Item>
-              <Menu-Item name="3-2">Option 2</Menu-Item>
-            </Submenu>
+<!--            <Submenu name="2">-->
+<!--              <template slot="title">-->
+<!--                <Icon type="ios-keypad"></Icon>-->
+<!--                Item 2-->
+<!--              </template>-->
+<!--              <Menu-Item name="2-1">Option 1</Menu-Item>-->
+<!--              <Menu-Item name="2-2">Option 2</Menu-Item>-->
+<!--            </Submenu>-->
+<!--            <Submenu name="3">-->
+<!--              <template slot="title">-->
+<!--                <Icon type="ios-analytics"></Icon>-->
+<!--                Item 3-->
+<!--              </template>-->
+<!--              <Menu-Item name="3-1">Option 1</Menu-Item>-->
+<!--              <Menu-Item name="3-2">Option 2</Menu-Item>-->
+<!--            </Submenu>-->
           </Menu>
         </Sider>
         <Layout :style="{padding: '0 24px 24px'}">

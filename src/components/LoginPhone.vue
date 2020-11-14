@@ -25,7 +25,8 @@
           // "idd": "f6588b4d3a274d599c8696e3a2e89579",
           // "name":"水"
           email: this.email,
-          password: this.password
+          password: this.password,
+          role: 1
         }
         this.$axios.post('/user/loginPwd', qs.stringify(data))
           .then((response) => {
@@ -80,7 +81,7 @@
     width: 100%;
     border: none;
     color: white;
-    background: #3aa0ff;
+    background: rgba(122, 106, 114, 0.95);
     font-size: 20px;
     padding: 5px;
     margin-top: 15px;
